@@ -1,8 +1,8 @@
-#[cfg(test)]
-mod tests {
-    #[test]
-    fn it_works() {
-        let result = 2 + 2;
-        assert_eq!(result, 4);
-    }
-}
+pub mod compress;
+pub mod encoding;
+pub mod tree;
+
+pub const COUNTERS_SIZE: usize = u8::MAX as usize;
+
+pub use compress::{compress, generate_encodings, NonEmptySlice};
+pub use encoding::Encoding;
