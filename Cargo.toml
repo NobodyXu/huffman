@@ -6,3 +6,4 @@ edition = "2021"
 [dependencies]
 rayon = "1.5.1"
 binary-heap-plus = "0.4.1"
+bitvec = "0.22.3"
