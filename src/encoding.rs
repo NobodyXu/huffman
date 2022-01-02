@@ -3,12 +3,12 @@ use std::ops::Deref;
 
 use bitvec::prelude::*;
 
+/// The encoding can have at most 255 bits,
+/// since the Huffman tree can have at most 256 layers, however
+/// the root node does not participate in encoding, thus the
+/// maximum length of the symbol is 255 bits.
 #[derive(Copy, Clone, Eq)]
 pub struct Encoding {
-    /// The encoding can have at most 255 bits,
-    /// since the Huffman tree can have at most 256 layers, however
-    /// the root node does not participate in encoding, thus the
-    /// maximum length of the symbol is 255 bits.
     inner: [u8; 32],
     len: u8,
 }
@@ -21,6 +21,7 @@ impl Encoding {
         }
     }
 
+    /// Must not push more than 255 bits.
     pub fn push(&mut self, bit: bool) {
         let bitslice: &mut BitSlice<Lsb0, u8> = BitSlice::from_slice_mut(&mut self.inner).unwrap();
         bitslice.set(self.len as usize, bit);
