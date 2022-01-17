@@ -25,7 +25,7 @@ impl Encoding {
     pub fn push(&mut self, bit: bool) {
         let bitslice: &mut BitSlice<Lsb0, u8> = BitSlice::from_slice_mut(&mut self.inner).unwrap();
         bitslice.set(self.len as usize, bit);
-        self.len.checked_add(1).unwrap();
+        self.len = self.len.checked_add(1).unwrap();
     }
 
     pub const fn len(&self) -> u8 {
