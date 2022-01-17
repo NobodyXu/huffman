@@ -36,14 +36,9 @@ impl Encoding {
         self.len() == 0
     }
 
-    pub fn reverse(&self) -> Self {
-        let mut reversed_encoding = Self::new();
-
-        for bit in self.deref().into_iter().rev() {
-            reversed_encoding.push(*bit);
-        }
-
-        reversed_encoding
+    pub fn reverse(&mut self) {
+        let bitslice = BitSlice::<Lsb0, u8>::from_slice_mut(&mut self.inner).unwrap();
+        bitslice.split_at_mut(self.len as usize).0.reverse();
     }
 }
 
