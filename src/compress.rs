@@ -23,6 +23,8 @@ impl<'a> NonEmptySlice<'a> {
     }
 }
 
+// TODO: Fallback to sequential mode if the input is small
+
 /// Return the length of the compressed data in bits and encodings.
 pub fn generate_encodings(bytes: NonEmptySlice) -> (usize, Box<[Encoding; COUNTERS_SIZE]>) {
     let counters = bytes
