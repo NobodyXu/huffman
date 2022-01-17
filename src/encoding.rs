@@ -22,6 +22,8 @@ impl Encoding {
     }
 
     /// Must not push more than 255 bits.
+    ///
+    /// Bits of encoding shall be added in reverse.
     pub fn push(&mut self, bit: bool) {
         let bitslice: &mut BitSlice<Lsb0, u8> = BitSlice::from_slice_mut(&mut self.inner).unwrap();
         bitslice.set(self.len as usize, bit);
@@ -38,7 +40,7 @@ impl Encoding {
 }
 
 impl Deref for Encoding {
-    type Target = BitSlice<Lsb0, u8>;
+    type Target = BitSlice<Msb0, u8>;
 
     fn deref(&self) -> &Self::Target {
         let bitslice = BitSlice::from_slice(&self.inner).unwrap();
