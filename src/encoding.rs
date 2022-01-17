@@ -35,6 +35,16 @@ impl Encoding {
     pub const fn is_empty(&self) -> bool {
         self.len() == 0
     }
+
+    pub fn reverse(&self) -> Self {
+        let mut reversed_encoding = Self::new();
+
+        for bit in self.deref().into_iter().rev() {
+            reversed_encoding.push(*bit);
+        }
+
+        reversed_encoding
+    }
 }
 
 impl Deref for Encoding {
