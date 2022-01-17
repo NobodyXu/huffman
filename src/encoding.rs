@@ -73,3 +73,26 @@ impl fmt::Debug for Encoding {
         self.deref().fmt(f)
     }
 }
+
+#[cfg(test)]
+mod tests {
+    use super::Encoding;
+    use bitvec::prelude::*;
+
+    #[test]
+    fn test_push() {
+        let mut encoding = Encoding::new();
+        let mut bitvec = BitVec::<Lsb0, u8>::new();
+
+        assert!(encoding.is_empty());
+
+        for i in 1..=255 {
+            encoding.push(true);
+            bitvec.push(true);
+
+            assert_eq!(encoding.len(), i);
+
+            assert_eq!(*encoding, *bitvec);
+        }
+    }
+}
