@@ -75,7 +75,7 @@ mod tests {
     use bitvec::prelude::*;
 
     #[test]
-    fn test_push() {
+    fn test() {
         let mut encoding = Encoding::new();
         let mut bitvec = BitVec::<Lsb0, u8>::new();
 
@@ -89,5 +89,10 @@ mod tests {
 
             assert_eq!(*encoding, *bitvec);
         }
+
+        encoding.reverse();
+        bitvec.reverse();
+
+        assert_eq!(*encoding, *bitvec);
     }
 }
