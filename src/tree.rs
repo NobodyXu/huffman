@@ -120,7 +120,7 @@ impl HuffmanTree {
                     node = &nodes[parent as usize];
                 }
 
-                encoding
+                encoding.reverse()
             })
             .collect();
 
