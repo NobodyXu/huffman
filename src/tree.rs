@@ -13,7 +13,6 @@ struct Node {
     bit: bool,
 
     /// the counter of the left is <= counter of the right
-    left: u16,
     right: u16,
 }
 
@@ -30,7 +29,6 @@ impl HuffmanTree {
                 bit: false,
 
                 parent: u16::MAX,
-                left: u16::MAX,
                 right: u16::MAX,
             });
         }
@@ -73,7 +71,6 @@ impl HuffmanTree {
                     bit: false,
 
                     parent: u16::MAX,
-                    left,
                     right,
                 });
 
