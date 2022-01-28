@@ -10,7 +10,7 @@ struct Node {
 
     bit: bool,
 
-    /// the counter of the left is <= counter of the right
+    /// the counter of the left is >= counter of the right
     right: u16,
 }
 
