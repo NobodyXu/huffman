@@ -1,6 +1,4 @@
-use super::{Encoding, COUNTERS_SIZE};
-
-use std::cell::RefCell;
+use super::{borrow_cell::BorrowCell, Encoding, COUNTERS_SIZE};
 
 use binary_heap_plus::BinaryHeap;
 
@@ -33,7 +31,7 @@ impl HuffmanTree {
             });
         }
 
-        let nodes = RefCell::new(nodes);
+        let nodes = BorrowCell::new(nodes);
 
         let mut heap = BinaryHeap::from_vec_cmp((0_u16..255_u16).collect(), |x: &u16, y: &u16| {
             let nodes = nodes.borrow();
@@ -60,7 +58,7 @@ impl HuffmanTree {
             };
 
             let parent = {
-                let mut nodes = nodes.borrow_mut();
+                let mut nodes = nodes.borrow();
 
                 let cnt = nodes[left as usize].cnt + nodes[right as usize].cnt;
 
