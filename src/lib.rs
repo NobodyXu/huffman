@@ -1,3 +1,4 @@
+mod borrow_cell;
 pub mod compress;
 pub mod encoding;
 pub mod tree;
