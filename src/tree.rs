@@ -22,9 +22,9 @@ pub struct HuffmanTree(Box<[Node]>);
 impl HuffmanTree {
     pub fn new(counters: &[usize; COUNTERS_SIZE]) -> Self {
         let mut nodes = Vec::with_capacity(511);
-        for cnt in counters {
+        for cnt in counters.iter().copied() {
             nodes.push(Node {
-                cnt: *cnt,
+                cnt,
 
                 bit: false,
 
