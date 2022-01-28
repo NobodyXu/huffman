@@ -96,6 +96,13 @@ impl HuffmanTree {
         // Iterate over all internal nodes to assign bits
         for i in 256..511 {
             let right = &mut nodes[nodes[i].right as usize];
+
+            // right.bit should be initialized to `false`.
+            //
+            // If it is set to `true`, then it means the same node
+            // is set to be children of two different nodes.
+            debug_assert!(!right.bit);
+
             right.bit = true;
         }
     }
