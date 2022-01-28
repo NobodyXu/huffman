@@ -7,14 +7,8 @@ use binary_heap_plus::BinaryHeap;
 #[derive(Debug)]
 struct Node {
     cnt: usize,
-
     parent: u16,
-
     bit: bool,
-
-    /// the counter of the left is <= counter of the right
-    left: u16,
-    right: u16,
 }
 
 #[derive(Debug)]
@@ -23,15 +17,11 @@ pub struct HuffmanTree(Box<[Node]>);
 impl HuffmanTree {
     pub fn new(counters: &[usize; COUNTERS_SIZE]) -> Self {
         let mut nodes = Vec::with_capacity(511);
-        for cnt in counters {
+        for cnt in counters.iter().copied() {
             nodes.push(Node {
-                cnt: *cnt,
-
+                cnt,
                 bit: false,
-
                 parent: u16::MAX,
-                left: u16::MAX,
-                right: u16::MAX,
             });
         }
 
@@ -56,9 +46,7 @@ impl HuffmanTree {
                 debug_assert_eq!(inner.len(), 511);
                 debug_assert_eq!(left, 510);
 
-                let mut this = Self(inner);
-                this.assign_bits();
-                break this;
+                break Self(inner);
             };
 
             let parent = {
@@ -69,12 +57,8 @@ impl HuffmanTree {
                 // Add new parent
                 nodes.push(Node {
                     cnt,
-
                     bit: false,
-
                     parent: u16::MAX,
-                    left,
-                    right,
                 });
 
                 // Index of the newly added parent
@@ -87,16 +71,6 @@ impl HuffmanTree {
             };
 
             heap.push(parent);
-        }
-    }
-
-    fn assign_bits(&mut self) {
-        let nodes = &mut self.0;
-
-        // Iterate over all internal nodes to assign bits
-        for i in 256..511 {
-            let right = &mut nodes[nodes[i].right as usize];
-            right.bit = true;
         }
     }
 
